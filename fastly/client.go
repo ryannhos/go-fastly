@@ -41,6 +41,209 @@ var ProjectVersion = "1.3.0"
 var UserAgent = fmt.Sprintf("FastlyGo/%s (+%s; %s)",
 	ProjectVersion, ProjectURL, runtime.Version())
 
+type ApiClient interface {
+	ListACLs(i *ListACLsInput) ([]*ACL, error)
+	CreateACL(i *CreateACLInput) (*ACL, error)
+	DeleteACL(i *DeleteACLInput) error
+	GetACL(i *GetACLInput) (*ACL, error)
+	UpdateACL(i *UpdateACLInput) (*ACL, error)
+	ListACLEntries(i *ListACLEntriesInput) ([]*ACLEntry, error)
+	GetACLEntry(i *GetACLEntryInput) (*ACLEntry, error)
+	CreateACLEntry(i *CreateACLEntryInput) (*ACLEntry, error)
+	DeleteACLEntry(i *DeleteACLEntryInput) error
+	UpdateACLEntry(i *UpdateACLEntryInput) (*ACLEntry, error)
+	BatchModifyACLEntries(i *BatchModifyACLEntriesInput) error
+	ListBackends(i *ListBackendsInput) ([]*Backend, error)
+	CreateBackend(i *CreateBackendInput) (*Backend, error)
+	GetBackend(i *GetBackendInput) (*Backend, error)
+	UpdateBackend(i *UpdateBackendInput) (*Backend, error)
+	DeleteBackend(i *DeleteBackendInput) error
+	ListBigQueries(i *ListBigQueriesInput) ([]*BigQuery, error)
+	CreateBigQuery(i *CreateBigQueryInput) (*BigQuery, error)
+	GetBigQuery(i *GetBigQueryInput) (*BigQuery, error)
+	UpdateBigQuery(i *UpdateBigQueryInput) (*BigQuery, error)
+	DeleteBigQuery(i *DeleteBigQueryInput) error
+	GetBilling(i *GetBillingInput) (*Billing, error)
+	ListBlobStorages(i *ListBlobStoragesInput) ([]*BlobStorage, error)
+	CreateBlobStorage(i *CreateBlobStorageInput) (*BlobStorage, error)
+	GetBlobStorage(i *GetBlobStorageInput) (*BlobStorage, error)
+	UpdateBlobStorage(i *UpdateBlobStorageInput) (*BlobStorage, error)
+	DeleteBlobStorage(i *DeleteBlobStorageInput) error
+	ListCacheSettings(i *ListCacheSettingsInput) ([]*CacheSetting, error)
+	CreateCacheSetting(i *CreateCacheSettingInput) (*CacheSetting, error)
+	GetCacheSetting(i *GetCacheSettingInput) (*CacheSetting, error)
+	UpdateCacheSetting(i *UpdateCacheSettingInput) (*CacheSetting, error)
+	DeleteCacheSetting(i *DeleteCacheSettingInput) error
+	ListConditions(i *ListConditionsInput) ([]*Condition, error)
+	CreateCondition(i *CreateConditionInput) (*Condition, error)
+	GetCondition(i *GetConditionInput) (*Condition, error)
+	UpdateCondition(i *UpdateConditionInput) (*Condition, error)
+	DeleteCondition(i *DeleteConditionInput) error
+	EdgeCheck(i *EdgeCheckInput) ([]*EdgeCheck, error)
+	ListDictionaries(i *ListDictionariesInput) ([]*Dictionary, error)
+	CreateDictionary(i *CreateDictionaryInput) (*Dictionary, error)
+	GetDictionary(i *GetDictionaryInput) (*Dictionary, error)
+	UpdateDictionary(i *UpdateDictionaryInput) (*Dictionary, error)
+	DeleteDictionary(i *DeleteDictionaryInput) error
+	GetDictionaryInfo(i *GetDictionaryInfoInput) (*DictionaryInfo, error)
+	ListDictionaryItems(i *ListDictionaryItemsInput) ([]*DictionaryItem, error)
+	CreateDictionaryItem(i *CreateDictionaryItemInput) (*DictionaryItem, error)
+	CreateDictionaryItems(i []CreateDictionaryItemInput) ([]DictionaryItem, error)
+	GetDictionaryItem(i *GetDictionaryItemInput) (*DictionaryItem, error)
+	UpdateDictionaryItem(i *UpdateDictionaryItemInput) (*DictionaryItem, error)
+	BatchModifyDictionaryItems(i *BatchModifyDictionaryItemsInput) error
+	DeleteDictionaryItem(i *DeleteDictionaryItemInput) error
+	GetDiff(i *GetDiffInput) (*Diff, error)
+	ListDirectors(i *ListDirectorsInput) ([]*Director, error)
+	CreateDirector(i *CreateDirectorInput) (*Director, error)
+	GetDirector(i *GetDirectorInput) (*Director, error)
+	UpdateDirector(i *UpdateDirectorInput) (*Director, error)
+	DeleteDirector(i *DeleteDirectorInput) error
+	CreateDirectorBackend(i *CreateDirectorBackendInput) (*DirectorBackend, error)
+	GetDirectorBackend(i *GetDirectorBackendInput) (*DirectorBackend, error)
+	DeleteDirectorBackend(i *DeleteDirectorBackendInput) error
+	ListDomains(i *ListDomainsInput) ([]*Domain, error)
+	CreateDomain(i *CreateDomainInput) (*Domain, error)
+	GetDomain(i *GetDomainInput) (*Domain, error)
+	UpdateDomain(i *UpdateDomainInput) (*Domain, error)
+	DeleteDomain(i *DeleteDomainInput) error
+	GetAPIEvents(i *GetAPIEventsFilterInput) (GetAPIEventsResponse, error)
+	GetAPIEvent(i *GetAPIEventInput) (*Event, error)
+	ListFTPs(i *ListFTPsInput) ([]*FTP, error)
+	CreateFTP(i *CreateFTPInput) (*FTP, error)
+	GetFTP(i *GetFTPInput) (*FTP, error)
+	UpdateFTP(i *UpdateFTPInput) (*FTP, error)
+	DeleteFTP(i *DeleteFTPInput) error
+	ListGCSs(i *ListGCSsInput) ([]*GCS, error)
+	CreateGCS(i *CreateGCSInput) (*GCS, error)
+	GetGCS(i *GetGCSInput) (*GCS, error)
+	UpdateGCS(i *UpdateGCSInput) (*GCS, error)
+	DeleteGCS(i *DeleteGCSInput) error
+	ListGzips(i *ListGzipsInput) ([]*Gzip, error)
+	CreateGzip(i *CreateGzipInput) (*Gzip, error)
+	GetGzip(i *GetGzipInput) (*Gzip, error)
+	UpdateGzip(i *UpdateGzipInput) (*Gzip, error)
+	DeleteGzip(i *DeleteGzipInput) error
+	ListHeaders(i *ListHeadersInput) ([]*Header, error)
+	CreateHeader(i *CreateHeaderInput) (*Header, error)
+	GetHeader(i *GetHeaderInput) (*Header, error)
+	UpdateHeader(i *UpdateHeaderInput) (*Header, error)
+	DeleteHeader(i *DeleteHeaderInput) error
+	ListHealthChecks(i *ListHealthChecksInput) ([]*HealthCheck, error)
+	CreateHealthCheck(i *CreateHealthCheckInput) (*HealthCheck, error)
+	GetHealthCheck(i *GetHealthCheckInput) (*HealthCheck, error)
+	UpdateHealthCheck(i *UpdateHealthCheckInput) (*HealthCheck, error)
+	DeleteHealthCheck(i *DeleteHealthCheckInput) error
+	ListLogentries(i *ListLogentriesInput) ([]*Logentries, error)
+	CreateLogentries(i *CreateLogentriesInput) (*Logentries, error)
+	GetLogentries(i *GetLogentriesInput) (*Logentries, error)
+	UpdateLogentries(i *UpdateLogentriesInput) (*Logentries, error)
+	DeleteLogentries(i *DeleteLogentriesInput) error
+	ListPapertrails(i *ListPapertrailsInput) ([]*Papertrail, error)
+	CreatePapertrail(i *CreatePapertrailInput) (*Papertrail, error)
+	GetPapertrail(i *GetPapertrailInput) (*Papertrail, error)
+	UpdatePapertrail(i *UpdatePapertrailInput) (*Papertrail, error)
+	DeletePapertrail(i *DeletePapertrailInput) error
+	Purge(i *PurgeInput) (*Purge, error)
+	PurgeKey(i *PurgeKeyInput) (*Purge, error)
+	PurgeAll(i *PurgeAllInput) (*Purge, error)
+	RawRequest(verb, p string, ro *RequestOptions) (*http.Request, error)
+	SimpleGet(target string) (*http.Response, error)
+	ListRequestSettings(i *ListRequestSettingsInput) ([]*RequestSetting, error)
+	CreateRequestSetting(i *CreateRequestSettingInput) (*RequestSetting, error)
+	GetRequestSetting(i *GetRequestSettingInput) (*RequestSetting, error)
+	UpdateRequestSetting(i *UpdateRequestSettingInput) (*RequestSetting, error)
+	DeleteRequestSetting(i *DeleteRequestSettingInput) error
+	ListResponseObjects(i *ListResponseObjectsInput) ([]*ResponseObject, error)
+	CreateResponseObject(i *CreateResponseObjectInput) (*ResponseObject, error)
+	GetResponseObject(i *GetResponseObjectInput) (*ResponseObject, error)
+	UpdateResponseObject(i *UpdateResponseObjectInput) (*ResponseObject, error)
+	DeleteResponseObject(i *DeleteResponseObjectInput) error
+	ListS3s(i *ListS3sInput) ([]*S3, error)
+	CreateS3(i *CreateS3Input) (*S3, error)
+	GetS3(i *GetS3Input) (*S3, error)
+	UpdateS3(i *UpdateS3Input) (*S3, error)
+	DeleteS3(i *DeleteS3Input) error
+	ListServices(i *ListServicesInput) ([]*Service, error)
+	CreateService(i *CreateServiceInput) (*Service, error)
+	GetService(i *GetServiceInput) (*Service, error)
+	GetServiceDetails(i *GetServiceInput) (*ServiceDetail, error)
+	UpdateService(i *UpdateServiceInput) (*Service, error)
+	DeleteService(i *DeleteServiceInput) error
+	SearchService(i *SearchServiceInput) (*Service, error)
+	ListServiceDomains(i *ListServiceDomainInput) (ServiceDomainsList, error)
+	GetSettings(i *GetSettingsInput) (*Settings, error)
+	UpdateSettings(i *UpdateSettingsInput) (*Settings, error)
+	ListSplunks(i *ListSplunksInput) ([]*Splunk, error)
+	CreateSplunk(i *CreateSplunkInput) (*Splunk, error)
+	GetSplunk(i *GetSplunkInput) (*Splunk, error)
+	UpdateSplunk(i *UpdateSplunkInput) (*Splunk, error)
+	DeleteSplunk(i *DeleteSplunkInput) error
+	GetStats(i *GetStatsInput) (*StatsResponse, error)
+	GetUsage(i *GetUsageInput) (*UsageResponse, error)
+	GetUsageByService(i *GetUsageInput) (*UsageByServiceResponse, error)
+	GetRegions() (*RegionsResponse, error)
+	ListSumologics(i *ListSumologicsInput) ([]*Sumologic, error)
+	CreateSumologic(i *CreateSumologicInput) (*Sumologic, error)
+	GetSumologic(i *GetSumologicInput) (*Sumologic, error)
+	UpdateSumologic(i *UpdateSumologicInput) (*Sumologic, error)
+	DeleteSumologic(i *DeleteSumologicInput) error
+	ListSyslogs(i *ListSyslogsInput) ([]*Syslog, error)
+	CreateSyslog(i *CreateSyslogInput) (*Syslog, error)
+	GetSyslog(i *GetSyslogInput) (*Syslog, error)
+	UpdateSyslog(i *UpdateSyslogInput) (*Syslog, error)
+	DeleteSyslog(i *DeleteSyslogInput) error
+	ListTokens() ([]*Token, error)
+	ListCustomerTokens(i *ListCustomerTokensInput) ([]*Token, error)
+	GetTokenSelf() (*Token, error)
+	CreateToken(i *CreateTokenInput) (*Token, error)
+	DeleteToken(i *DeleteTokenInput) error
+	DeleteTokenSelf() error
+	ListVCLs(i *ListVCLsInput) ([]*VCL, error)
+	GetVCL(i *GetVCLInput) (*VCL, error)
+	GetGeneratedVCL(i *GetGeneratedVCLInput) (*VCL, error)
+	CreateVCL(i *CreateVCLInput) (*VCL, error)
+	UpdateVCL(i *UpdateVCLInput) (*VCL, error)
+	ActivateVCL(i *ActivateVCLInput) (*VCL, error)
+	DeleteVCL(i *DeleteVCLInput) error
+	CreateSnippet(i *CreateSnippetInput) (*Snippet, error)
+	UpdateSnippet(i *UpdateSnippetInput) (*Snippet, error)
+	UpdateDynamicSnippet(i *UpdateDynamicSnippetInput) (*DynamicSnippet, error)
+	DeleteSnippet(i *DeleteSnippetInput) error
+	ListSnippets(i *ListSnippetsInput) ([]*Snippet, error)
+	GetSnippet(i *GetSnippetInput) (*Snippet, error)
+	GetDynamicSnippet(i *GetDynamicSnippetInput) (*DynamicSnippet, error)
+	ListVersions(i *ListVersionsInput) ([]*Version, error)
+	LatestVersion(i *LatestVersionInput) (*Version, error)
+	CreateVersion(i *CreateVersionInput) (*Version, error)
+	GetVersion(i *GetVersionInput) (*Version, error)
+	UpdateVersion(i *UpdateVersionInput) (*Version, error)
+	ActivateVersion(i *ActivateVersionInput) (*Version, error)
+	DeactivateVersion(i *DeactivateVersionInput) (*Version, error)
+	CloneVersion(i *CloneVersionInput) (*Version, error)
+	ValidateVersion(i *ValidateVersionInput) (bool, string, error)
+	LockVersion(i *LockVersionInput) (*Version, error)
+	ListWAFs(i *ListWAFsInput) ([]*WAF, error)
+	CreateWAF(i *CreateWAFInput) (*WAF, error)
+	GetWAF(i *GetWAFInput) (*WAF, error)
+	UpdateWAF(i *UpdateWAFInput) (*WAF, error)
+	DeleteWAF(i *DeleteWAFInput) error
+	GetOWASP(i *GetOWASPInput) (*OWASP, error)
+	CreateOWASP(i *CreateOWASPInput) (*OWASP, error)
+	UpdateOWASP(i *UpdateOWASPInput) (*OWASP, error)
+	GetRules() ([]*Rule, error)
+	GetRule(i *GetRuleInput) (*Rule, error)
+	GetRuleVCL(i *GetRuleInput) (*RuleVCL, error)
+	GetWAFRuleVCL(i *GetWAFRuleVCLInput) (*RuleVCL, error)
+	GetWAFRuleRuleSets(i *GetWAFRuleRuleSetsInput) (*Ruleset, error)
+	UpdateWAFRuleSets(i *UpdateWAFRuleRuleSetsInput) (*Ruleset, error)
+	GetWAFRuleStatuses(i *GetWAFRuleStatusesInput) (GetWAFRuleStatusesResponse, error)
+	GetWAFRuleStatus(i *GetWAFRuleStatusInput) (WAFRuleStatus, error)
+	UpdateWAFRuleStatus(i *UpdateWAFRuleStatusInput) (WAFRuleStatus, error)
+	UpdateWAFRuleTagStatus(input *UpdateWAFRuleTagStatusInput) (GetWAFRuleStatusesResponse, error)
+	UpdateWAFConfigSet(i *UpdateWAFConfigSetInput) (UpdateWAFConfigSetResponse, error)
+}
+
 // Client is the main entrypoint to the Fastly golang API library.
 type Client struct {
 	// Address is the address of Fastly's API endpoint.
@@ -87,7 +290,8 @@ func NewClient(key string) (*Client, error) {
 // request that requires an API key will return a 403 response.
 func NewClientForEndpoint(key string, endpoint string) (*Client, error) {
 	client := &Client{apiKey: key, Address: endpoint}
-	return client.init()
+	client, err := client.init()
+	return client, err
 }
 
 // NewRealtimeStatsClient instantiates a new Fastly API client for the realtime stats.
